@@ -51,7 +51,7 @@
                             <th >Kecamatan</th>
                             <th>Desa/Kelurahan</th>
                             <th width="5%">Skor</th>
-                            <th width="15%">Kelompok</th>
+                            <th width="15%">Kategori</th>
                             <th width="10%">Status</th>
                         </tr>
                     </thead>
@@ -317,7 +317,7 @@ function printData() {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Kelompok</label>
+                        <label>Kategori</label>
                         <select class="form-control" name="lstBobot" id="lstBobot">
                             <option value="">- SEMUA -</option>
                             <?php foreach($listBobot as $r) { ?>

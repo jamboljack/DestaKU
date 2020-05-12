@@ -50,7 +50,7 @@
                             <th >Kecamatan</th>
                             <th>Desa/Kelurahan</th>
                             <th width="5%">Skor</th>
-                            <th width="15%">Kelompok</th>
+                            <th width="15%">Kategori</th>
                             <th width="10%">Status</th>
                         </tr>
                     </thead>

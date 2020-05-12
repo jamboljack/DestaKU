@@ -96,13 +96,13 @@
     } elseif ($dari != 'all' && $status != 'all' && $bobot == 'all') {
         echo '<p align="center" style="font-size:14px;">PERIODE : '.tgl_indo(date('Y-m-d', strtotime($dari))).' - '.tgl_indo(date('Y-m-d', strtotime($sampai))).'<br>STATUS : '.$sts.'</p>';
     } elseif ($dari == 'all'  && $status == 'all' && $bobot != 'all') {
-        echo '<p align="center" style="font-size:14px;">KELOMPOK : '.$kelompok.'</p>';
+        echo '<p align="center" style="font-size:14px;">KATEGORI : '.$kelompok.'</p>';
     } elseif ($dari != 'all'  && $status == 'all' && $bobot != 'all') {
-        echo '<p align="center" style="font-size:14px;">PERIODE : '.tgl_indo(date('Y-m-d', strtotime($dari))).' - '.tgl_indo(date('Y-m-d', strtotime($sampai))).'<br>KELOMPOK : '.$kelompok.'</p>';
+        echo '<p align="center" style="font-size:14px;">PERIODE : '.tgl_indo(date('Y-m-d', strtotime($dari))).' - '.tgl_indo(date('Y-m-d', strtotime($sampai))).'<br>KATEGORI : '.$kelompok.'</p>';
     } elseif ($dari == 'all'  && $status != 'all' && $bobot != 'all') {
-        echo '<p align="center" style="font-size:14px;">STATUS : '.$sts.'<br>KELOMPOK : '.$kelompok.'</p>';
+        echo '<p align="center" style="font-size:14px;">STATUS : '.$sts.'<br>KATEGORI : '.$kelompok.'</p>';
     } elseif ($dari != 'all' && $status != 'all' && $bobot != 'all') {
-        echo '<p align="center" style="font-size:14px;">PERIODE : '.tgl_indo(date('Y-m-d', strtotime($dari))).' - '.tgl_indo(date('Y-m-d', strtotime($sampai))).'<br>STATUS : '.$sts.'<br>KELOMPOK : '.$kelompok.'</p>';
+        echo '<p align="center" style="font-size:14px;">PERIODE : '.tgl_indo(date('Y-m-d', strtotime($dari))).' - '.tgl_indo(date('Y-m-d', strtotime($sampai))).'<br>STATUS : '.$sts.'<br>KATEGORI : '.$kelompok.'</p>';
     }
     ?>
     <table width="100%" cellpadding="2" cellspacing="2" border="1">
