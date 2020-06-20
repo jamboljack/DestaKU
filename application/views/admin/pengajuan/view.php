@@ -175,6 +175,40 @@ function hapusData(pengajuan_id) {
     });
 }
 
+function undoDataDraft(pengajuan_id) {
+    var id = pengajuan_id;
+    swal.fire({
+        title: 'Anda Yakin ?',
+        text: "Data ini akan di Kirim Balik.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+    }).then(function(result) {
+        if (result.value) {
+            $.ajax({
+                url : "<?=site_url('admin/pengajuan/undodatadraft')?>/"+id,
+                type: "POST",
+                success: function(data) {
+                    swal.fire({
+                        title:"Sukses",
+                        text: "Berkas Di Kembalikan ke Desa",
+                        showConfirmButton: false,
+                        type: "success",
+                        timer: 2000
+                    });
+                    reload_table();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error Proses');
+                }
+            });
+        }
+    });
+}
+
 function undoData(pengajuan_id) {
     var id = pengajuan_id;
     swal.fire({

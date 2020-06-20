@@ -102,9 +102,39 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-3 col-form-label">Footer</label>
+                                <label class="col-3 col-form-label">Title</label>
                                 <div class="col-9">
-                                    <textarea class="form-control summernote" rows="10" name="footer"><?=$detail->meta_footer;?></textarea>
+                                    <textarea class="form-control summernote" rows="10" name="title"><?=$detail->meta_title;?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">Nama Kepala Dinas</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="nama_kepala" placeholder="Input Nama Kepala Dinas" value="<?=$detail->meta_nama_kepala;?>" autocomplete="off"  />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">Jabatan</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="jabatan" placeholder="Input Jabatan" value="<?=$detail->meta_jabatan;?>" autocomplete="off"  />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">Pangkat</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="pangkat" placeholder="Input Pangkat" value="<?=$detail->meta_pangkat;?>" autocomplete="off"  />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">N I P</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="nip" placeholder="Input N I P" value="<?=$detail->meta_nip;?>" autocomplete="off"  />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">Keterangan</label>
+                                <div class="col-9">
+                                    <textarea class="form-control summernote" rows="10" name="keterangan"><?=$detail->meta_keterangan;?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +176,11 @@ $(document).ready(function() {
             lstRobot: { required: true },
             lstGoogle: { required: true },
             email: { required: true, email: true },
-            no_wa: { required: true, number: true }
+            no_wa: { required: true, number: true },
+            nama_kepala: { required: true },
+            jabatan: { required: true },
+            pangkat: { required: true },
+            nip: { required: true }
         },
         messages: {
             name: { required :'Nama APP required' },
@@ -157,7 +191,11 @@ $(document).ready(function() {
             lstRobot: { required :'Robots required' },
             lstGoogle: { required :'Googlebots required' },
             email: { required :'Email required', email:'Email tidak Valid' },
-            no_wa: { required :'Nomor WA required', number:'Harus Angka' }
+            no_wa: { required :'Nomor WA required', number:'Harus Angka' },
+            nama_kepala: { required:'Nama Kepala Dinas required' },
+            jabatan: { required:'Jabatan required' },
+            pangkat: { required:'Pangkat required' },
+            nip: { required: 'N I P required' }
         },
         invalidHandler: function(event, validator) {
             KTUtil.scrollTop();

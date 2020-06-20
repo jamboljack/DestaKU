@@ -97,6 +97,7 @@
         } 
         ?>
     </table>
+    <br>
     <p><b>II. WISATA BUDAYA</b></p>
     <table width="100%" align="center" border="1">
         <tr>
@@ -131,6 +132,7 @@
         } 
         ?>
     </table>
+    <br>
     <p><b>III. WISATA BUATAN</b></p>
     <table width="100%" align="center" border="1">
         <tr>

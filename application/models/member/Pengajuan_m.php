@@ -220,6 +220,9 @@ class Pengajuan_m extends CI_Model
     public function insert_data()
     {
         $NoPendaftaran = $this->getNoDaftar();
+        $tanah_kering  = floatval(str_replace(",", "", $this->input->post('tanah_kering', 'true')));
+        $tanah_sawah   = floatval(str_replace(",", "", $this->input->post('tanah_sawah', 'true')));
+        $luas          = ($tanah_kering + $tanah_sawah);
         $data          = array(
             'user_username'                 => $this->session->userdata('username'),
             'pengajuan_tanggal'             => date('Y-m-d'),
@@ -238,7 +241,7 @@ class Pengajuan_m extends CI_Model
             'pengajuan_iklim'               => trim(strtoupper(stripHTMLtags($this->input->post('iklim', 'true')))),
             'pengajuan_luas_sawah'          => str_replace(",", "", $this->input->post('tanah_sawah', 'true')),
             'pengajuan_luas_kering'         => str_replace(",", "", $this->input->post('tanah_kering', 'true')),
-            'pengajuan_luas'                => (str_replace(",", "", $this->input->post('tanah_kering', 'true')) + str_replace(",", "", $this->input->post('tanah_sawah', 'true'))),
+            'pengajuan_luas'                => $luas,
             'pengajuan_dusun'               => str_replace(",", "", $this->input->post('dusun', 'true')),
             'pengajuan_rt'                  => str_replace(",", "", $this->input->post('rt', 'true')),
             'pengajuan_rw'                  => str_replace(",", "", $this->input->post('rw', 'true')),

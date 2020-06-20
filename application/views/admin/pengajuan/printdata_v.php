@@ -58,13 +58,20 @@
 <div class="page">
     <table width="100%" align="center" cellpadding="0" cellspacing="0">
         <tr>
-            <td align="center" style="font-weight: bold; font-size: 22px;"><?=$kontak->contact_name;?></td>
+            <td align="center" width="15%" rowspan="4"><img src="<?=base_url('img/logo-kudus.jpg');?>" width="75%"></td>
+            <td width="85%" style="font-size: 15px;" align="center">PEMERINTAH KABUPATEN KUDUS</td>
         </tr>
         <tr>
-            <td style="font-weight: bold; font-size: 12px;" align="center">Alamat Sekretariat : <?=$kontak->contact_address;?><br>Email : <?=$kontak->contact_email;?></td>
+            <td style="font-weight: bold; font-size: 24px;" align="center"><?=$kontak->contact_name;?></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; font-size: 14px;" align="center"><?=$kontak->contact_address;?><br>Email : <?=$kontak->contact_email;?></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; font-size: 14px;" align="center">K U D U S   59318</td>
         </tr>
     </table>
-    <hr style="border: 2px solid #000000;" />
+    <hr style="height:2px; border-top:2px solid black; border-bottom:1px solid black;">
     <p align="center" style="font-size: 15px;">DATA PERMOHONAN PENGAJUAN DESA WISATA</p>
     <?php
     $dari    = $this->uri->segment(4);

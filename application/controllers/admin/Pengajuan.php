@@ -28,14 +28,17 @@ class Pengajuan extends MY_Controller
             $row          = array();
             $pengajuan_id = $r->pengajuan_id;
             $link         = site_url('admin/pengajuan/detaildata/' . $pengajuan_id);
+            $surat        = site_url('admin/pengajuan/printsurat/' . $pengajuan_id);
             $print        = site_url('admin/pengajuan/printskor/' . $pengajuan_id);
             $nilai        = site_url('admin/pengajuan/penilaian/' . $pengajuan_id);
             if ($r->pengajuan_status == 'B') {
-                $konfirm = '<a href="javascript:;" onclick="konfirmData(' . $pengajuan_id . ')" title="Konfirmasi Data"><i class="flaticon2-checkmark"></i></a>';
-                $hapus   = '<a href="javascript:;" onclick="hapusData(' . $pengajuan_id . ')" title="Hapus Data"><i class="flaticon-delete"></i></a>';
+                $konfirm = '<a href="javascript:;" onclick="konfirmData(' . $pengajuan_id . ')" title="Konfirmasi Data"><i class="flaticon2-checkmark"></i></a>
+                            <a href="javascript:;" onclick="undoDataDraft(' . $pengajuan_id . ')" title="Kirim Balik"><i class="flaticon-reply"></i></a>';
+                $hapus = '<a href="javascript:;" onclick="hapusData(' . $pengajuan_id . ')" title="Hapus Data"><i class="flaticon-delete"></i></a>';
             } elseif ($r->pengajuan_status == 'K') {
-                $konfirm = '<a href="' . $nilai . '" title="Penilaian"><i class="flaticon2-writing"></i></a>';
-                $hapus   = '';
+                $konfirm = '<a href="' . $nilai . '" title="Penilaian"><i class="flaticon2-writing"></i></a>
+                            <a href="' . $surat . '" title="Print Surat Keterangan" target="_blank"><i class="flaticon-technology"></i></a>';
+                $hapus = '';
             } elseif ($r->pengajuan_status == 'N') {
                 $konfirm = '<a href="javascript:;" onclick="undoData(' . $pengajuan_id . ')" title="Undo Data"><i class="flaticon-reply"></i></a>
                             <a href="' . $print . '" title="Print Hasil Penilaian" target="_blank"><i class="flaticon-technology"></i></a>';
@@ -121,6 +124,17 @@ class Pengajuan extends MY_Controller
     public function deletedata($id)
     {
         $this->pengajuan_m->delete_data($id);
+    }
+
+    public function undodatadraft($id)
+    {
+        $data = array(
+            'pengajuan_status' => 'D',
+            'pengajuan_update' => date('Y-m-d H:i:s'),
+        );
+
+        $this->db->where('pengajuan_id', $id);
+        $this->db->update('destaku_pengajuan', $data);
     }
 
     public function undodata($id)
@@ -812,6 +826,14 @@ class Pengajuan extends MY_Controller
         $this->email->send();
     }
 
+    public function printsurat($id)
+    {
+        $data['detail']     = $this->db->get_where('v_pengajuan', array('pengajuan_id' => $id))->row();
+        $data['meta']       = $this->db->get_where('destaku_meta', array('meta_id' => 1))->row();
+        $data['detaildesa'] = $this->db->get_where('destaku_pengajuan_wisatawan', array('pengajuan_id' => $id))->row();
+        $this->load->view('admin/pengajuan/printsurat_v', $data);
+    }
+
     public function printskor($id)
     {
         $data['listIndikatorNilai'] = $this->db->order_by('indikator_no', 'asc')->get_where('v_indikator_penilaian', array('pengajuan_id' => $id))->result();
@@ -883,26 +905,26 @@ class Pengajuan extends MY_Controller
         if ($bobot == 'all') {
             $data['kelompok'] = '';
         } else {
-            $dataBobot     = $this->db->get_where('destaku_bobot', array('bobot_id' => $bobot))->row();
+            $dataBobot        = $this->db->get_where('destaku_bobot', array('bobot_id' => $bobot))->row();
             $data['kelompok'] = $dataBobot->bobot_nama;
         }
 
         if ($tgl_dari != 'all' && $tgl_sampai != 'all' && $status == 'all' && $bobot == 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai))->result();
         } elseif ($tgl_dari == 'all' && $tgl_sampai == 'all' && $status != 'all' && $bobot == 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_status' => $status))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_status' => $status))->result();
         } elseif ($tgl_dari != 'all' && $tgl_sampai != 'all' && $status != 'all' && $bobot == 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'pengajuan_status' => $status))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'pengajuan_status' => $status))->result();
         } elseif ($tgl_dari == 'all' && $tgl_sampai == 'all' && $status == 'all' && $bobot != 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('bobot_id' => $bobot))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('bobot_id' => $bobot))->result();
         } elseif ($tgl_dari != 'all' && $tgl_sampai != 'all' && $status == 'all' && $bobot != 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'bobot_id' => $bobot))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'bobot_id' => $bobot))->result();
         } elseif ($tgl_dari == 'all' && $tgl_sampai == 'all' && $status != 'all' && $bobot != 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_status' => $status, 'bobot_id' => $bobot))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_status' => $status, 'bobot_id' => $bobot))->result();
         } elseif ($tgl_dari != 'all' && $tgl_sampai != 'all' && $status != 'all' && $bobot != 'all') {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'pengajuan_status' => $status, 'bobot_id' => $bobot))->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get_where('v_pengajuan', array('pengajuan_tanggal >=' => $dari, 'pengajuan_tanggal <=' => $sampai, 'pengajuan_status' => $status, 'bobot_id' => $bobot))->result();
         } else {
-            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'asc')->get('v_pengajuan')->result();
+            $data['listData'] = $this->db->order_by('pengajuan_tanggal', 'desc')->order_by('pengajuan_no_pendaftaran', 'desc')->get('v_pengajuan')->result();
         }
 
         $this->load->view('admin/pengajuan/printdata_v', $data);

@@ -865,12 +865,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $( "#formInputPendidikan" ).validate({
         rules: { 
-            lstPendidikan: { required: true },
-            jumlah_sarana: { required: true }
+            lstPendidikan: { required: true }
         },
         messages: { 
-            lstPendidikan: { required :'Jenis Pendidikan required' },
-            jumlah_sarana: { required :'Jumlah Sarana required' }
+            lstPendidikan: { required :'Jenis Pendidikan required' }
         },
         invalidHandler: function(event, validator) {
             KTUtil.scrollTop();
@@ -3584,20 +3582,7 @@ $(document).ready(function() {
             jarak_kabupaten: { required: true },
             jarak_provinsi: { required: true },
             tinggi: { required: true },
-            iklim: { required: true },
-            tanah_sawah: { required: true },
-            tanah_kering: { required: true },
-            dusun: { required: true },
-            rt: { required: true },
-            rw: { required: true },
-            aparat_lk: { required: true },
-            aparat_pr: { required: true },
-            tps: { required: true },
-            pemilih_lk: { required: true },
-            pemilih_pr: { required: true },
-            nikah: { required: true },
-            warga_lk: { required: true },
-            warga_pr: { required: true }
+            iklim: { required: true }
         },
         messages: {
             batas_utara: { required:'Field required' },
@@ -3609,20 +3594,7 @@ $(document).ready(function() {
             jarak_kabupaten: { required:'Field required' },
             jarak_provinsi: { required:'Field required' },
             tinggi: { required:'Field required' },
-            iklim: { required:'Field required' },
-            tanah_sawah: { required:'Field required' },
-            tanah_kering: { required:'Field required' },
-            dusun: { required:'Field required' },
-            rt: { required:'Field required' },
-            rw: { required:'Field required' },
-            aparat_lk: { required:'Field required' },
-            aparat_pr: { required:'Field required' },
-            tps: { required:'Field required' },
-            pemilih_lk: { required:'Field required' },
-            pemilih_pr: { required:'Field required' },
-            nikah: { required:'Field required' },
-            warga_lk: { required:'Field required' },
-            warga_pr: { required:'Field required' }
+            iklim: { required:'Field required' }
         },
         invalidHandler: function(event, validator) {
             KTUtil.scrollTop();
