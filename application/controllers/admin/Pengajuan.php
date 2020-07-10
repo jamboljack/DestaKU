@@ -37,6 +37,7 @@ class Pengajuan extends MY_Controller
                 $hapus = '<a href="javascript:;" onclick="hapusData(' . $pengajuan_id . ')" title="Hapus Data"><i class="flaticon-delete"></i></a>';
             } elseif ($r->pengajuan_status == 'K') {
                 $konfirm = '<a href="' . $nilai . '" title="Penilaian"><i class="flaticon2-writing"></i></a>
+                            <a href="javascript:;" onclick="undoDataDraft(' . $pengajuan_id . ')" title="Kirim Balik"><i class="flaticon-reply"></i></a>
                             <a href="' . $surat . '" title="Print Surat Keterangan" target="_blank"><i class="flaticon-technology"></i></a>';
                 $hapus = '';
             } elseif ($r->pengajuan_status == 'N') {
