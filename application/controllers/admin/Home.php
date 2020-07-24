@@ -15,7 +15,7 @@ class Home extends MY_Controller
         $data['TotalBaru']       = $this->db->get_where('destaku_pengajuan', array('pengajuan_status' => 'B'))->result();
         $data['TotalKonfirmasi'] = $this->db->get_where('destaku_pengajuan', array('pengajuan_status' => 'K'))->result();
         $data['TotalPenilaian']  = $this->db->get_where('destaku_pengajuan', array('pengajuan_status' => 'N'))->result();
-        $data['Total']           = $this->db->get('destaku_pengajuan')->result();
+        $data['Total']           = $this->db->get_where('destaku_pengajuan', array('pengajuan_status !=' => 'D'))->result();
         $this->template->display('admin/home_v', $data);
     }
 }
